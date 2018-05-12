@@ -16,10 +16,10 @@ import java.util.List;
 @RestController("claims")
 public class ClaimController {
 
-    private BrokerService brokerService;
-    private CarrierService carrierService;
-    private AuthService authService;
-    private ClaimService claimService;
+    private final BrokerService brokerService;
+    private final CarrierService carrierService;
+    private final AuthService authService;
+    private final ClaimService claimService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired

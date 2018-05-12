@@ -4,8 +4,10 @@ import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.repos.ClaimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 public class ClaimServiceImpl implements ClaimService {
 
     private ClaimRepository claimRepository;
