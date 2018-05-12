@@ -1,20 +1,14 @@
-package com.silvershield.ssc.controllers;
+package com.silvershield.ssc.controller;
 
 import com.silvershield.ssc.auth.AuthService;
 import com.silvershield.ssc.auth.User;
-import com.silvershield.ssc.models.Broker;
-import com.silvershield.ssc.models.Carrier;
-import com.silvershield.ssc.models.Claim;
-import com.silvershield.ssc.repos.ClaimRepository;
-import com.silvershield.ssc.services.BrokerService;
-import com.silvershield.ssc.services.CarrierService;
-import com.silvershield.ssc.services.ClaimService;
+import com.silvershield.ssc.model.Broker;
+import com.silvershield.ssc.model.Carrier;
+import com.silvershield.ssc.model.Claim;
+import com.silvershield.ssc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,11 +16,11 @@ import java.util.List;
 @RestController("claims")
 public class ClaimController {
 
-    BrokerService brokerService;
-    CarrierService carrierService;
-    AuthService authService;
-    ClaimService claimService;
-    PasswordEncoder passwordEncoder;
+    private BrokerService brokerService;
+    private CarrierService carrierService;
+    private AuthService authService;
+    private ClaimService claimService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public ClaimController(BrokerService brokerService, CarrierService carrierService,
@@ -44,7 +38,7 @@ public class ClaimController {
     }
 
     @GetMapping("/{id}")
-    public Claim getClaimById(){
+    public Claim getClaimById(@PathVariable("id") String id){
         return null;
     }
 
@@ -99,8 +93,6 @@ public class ClaimController {
         claim.setStatus(Claim.Status.CREATED);
         claim.setSubmitDate(new Timestamp(System.currentTimeMillis()));
 
-        Claim savedClaim = claimService.saveClaim(claim);
-
-        return savedClaim;
+        return claimService.saveClaim(claim);
     }
 }

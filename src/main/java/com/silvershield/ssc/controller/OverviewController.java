@@ -1,9 +1,10 @@
-package com.silvershield.ssc.controllers;
+package com.silvershield.ssc.controller;
 
-import com.silvershield.ssc.models.Broker;
-import com.silvershield.ssc.models.Carrier;
-import com.silvershield.ssc.models.Claim;
+import com.silvershield.ssc.model.Broker;
+import com.silvershield.ssc.model.Carrier;
+import com.silvershield.ssc.model.Claim;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class OverviewController {
 
     // TODO claims by status
     @GetMapping("/review-claims/{status}")
-    public List<Claim> getClaimsByStatus(){
+    public List<Claim> getClaimsByStatus(@PathVariable("status") String status){
         return null;
     }
 
     // TODO claims by user
     @GetMapping("/review-claims/{userId}")
-    public List<Claim> getClaimsByUser(){
+    public List<Claim> getClaimsByUser(@PathVariable("userId") String userId){
         return null;
     }
 
@@ -37,7 +38,7 @@ public class OverviewController {
 
     // TODO brokers by status
     @GetMapping("review-brokers/{status}")
-    public List<Broker> getBrokersByStatus(){
+    public List<Broker> getBrokersByStatus(@PathVariable("status") String status){
         return null;
     }
 
@@ -49,13 +50,13 @@ public class OverviewController {
 
     // TODO all carriers by status
     @GetMapping("review-carriers/{status}")
-    public List<Broker> getCarriersByStatus(){
+    public List<Broker> getCarriersByStatus(@PathVariable("status") String status){
         return null;
     }
 
     // TODO all carriers by number of claims
     @GetMapping("review-carriers/{count}")
-    public List<Broker> getCarriersByCount(){
+    public List<Broker> getCarriersByCount(@PathVariable("count") String count){
         return null;
     }
 }

@@ -1,22 +1,21 @@
-package com.silvershield.ssc.services;
+package com.silvershield.ssc.service;
 
-import com.silvershield.ssc.models.Broker;
+import com.silvershield.ssc.model.Broker;
 import com.silvershield.ssc.repos.BrokerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BrokerService {
+public class BrokerServiceImpl implements BrokerService {
 
-    BrokerRepository brokerRepository;
+    private BrokerRepository brokerRepository;
 
     @Autowired
-    public BrokerService(BrokerRepository brokerRepository){
+    public BrokerServiceImpl(BrokerRepository brokerRepository){
         this.brokerRepository = brokerRepository;
     }
 
     public Broker saveBroker(Broker broker){
-        Broker savedBroker = brokerRepository.save(broker);
-        return savedBroker;
+        return brokerRepository.save(broker);
     }
 }

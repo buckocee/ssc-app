@@ -1,14 +1,13 @@
-package com.silvershield.ssc.models;
+package com.silvershield.ssc.model;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "carriers")
-public class Carrier {
+@Table(name = "brokers")
+public class Broker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +19,12 @@ public class Carrier {
     @Column(name = "dot_number")
     private String dotNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private Status status;
-
     @Column(name = "business_name")
     private String businessName;
 
-    @OneToMany(mappedBy = "carrier")
-    private List<Claim> claims;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
     public enum Status{
         ACTIVE, INACTIVE

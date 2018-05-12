@@ -1,4 +1,4 @@
-package com.silvershield.ssc.models;
+package com.silvershield.ssc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.silvershield.ssc.auth.User;
