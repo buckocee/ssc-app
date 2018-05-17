@@ -6,6 +6,8 @@ import com.silvershield.ssc.model.Broker;
 import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@RestController("claims")
+@RestController
+@RequestMapping(value = "api/v1/claims")
 public class ClaimController {
+
+    private final Logger _logger = LoggerFactory.getLogger(ClaimController.class);
 
     private final BrokerService brokerService;
     private final CarrierService carrierService;
@@ -34,7 +39,7 @@ public class ClaimController {
 
     @GetMapping
     public List<Claim> getAllClaims(){
-        return null;
+        return claimService.getClaims();
     }
 
     @GetMapping("/{id}")
@@ -43,8 +48,9 @@ public class ClaimController {
     }
 
     @PostMapping("/save")
-    public String saveClaim(@RequestBody Claim claim){
-        return null;
+    public Claim saveClaim(@RequestBody Claim claim){
+        _logger.info("Claim [{}]", claim);
+        return claimService.saveClaim(claim);
     }
 
     @PostMapping("/submit")

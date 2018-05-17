@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Service
 @Validated
 public class ClaimServiceImpl implements ClaimService {
@@ -20,5 +22,10 @@ public class ClaimServiceImpl implements ClaimService {
     @Override
     public Claim saveClaim(Claim claim){
         return claimRepository.save(claim);
+    }
+
+    @Override
+    public List<Claim> getClaims() {
+        return claimRepository.findAll();
     }
 }
