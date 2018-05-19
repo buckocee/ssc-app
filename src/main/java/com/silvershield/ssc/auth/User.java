@@ -58,4 +58,22 @@ public class User {
     public enum Status{
         ACTIVE, EXPIRED, LOCKED, CREDENTIALS_EXPIRED
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleInitial='" + middleInitial + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isActive=" + isActive +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", roles=" + roles +
+                '}';
+    }
 }
