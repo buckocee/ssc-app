@@ -25,7 +25,6 @@ public class ClaimController {
     private final CarrierService carrierService;
     private final AuthService authService;
     private final ClaimService claimService;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public ClaimController(BrokerService brokerService, CarrierService carrierService,
@@ -33,7 +32,6 @@ public class ClaimController {
         this.brokerService = brokerService;
         this.carrierService = carrierService;
         this.claimService = claimService;
-//        this.passwordEncoder = passwordEncoder;
         this.authService = authService;
     }
 
