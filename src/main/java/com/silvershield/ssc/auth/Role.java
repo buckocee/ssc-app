@@ -19,6 +19,8 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
-
+    Role(String name){
+        this.name = name;
+    }
 
 }

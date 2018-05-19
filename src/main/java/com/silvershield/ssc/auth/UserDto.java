@@ -1,10 +1,12 @@
 package com.silvershield.ssc.auth;
 
+import com.silvershield.ssc.validator.PasswordMatches;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@PasswordMatches
 public class UserDto {
 
     @NotNull

@@ -1,6 +1,7 @@
 package com.silvershield.ssc.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +17,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class SscUserDetailsService implements UserDetailsService {
+public class AuthUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public SscUserDetailsService(UserRepository userRepository){
+    public AuthUserDetailsService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
@@ -57,6 +58,6 @@ public class SscUserDetailsService implements UserDetailsService {
     }
 
     private List<String> getRoleNames(Collection<Role> roles){
-        return roles.stream().map(r -> r.getName()).collect(Collectors.toList());
+        return roles.stream().map(Role::getName).collect(Collectors.toList());
     }
 }
