@@ -12,10 +12,10 @@ import java.util.Optional;
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
-    private final Logger _logger = LoggerFactory.getLogger(RequestInterceptor.class);
+    private final Logger _logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) {
 
         Optional username = Optional.ofNullable(request.getHeader("X-Auth-Username"));
         Optional password = Optional.ofNullable(request.getHeader("X-Auth-Password"));

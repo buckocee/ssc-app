@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping(value = "api/v1/claims")
 public class ClaimController {
 
-    private final Logger _logger = LoggerFactory.getLogger(ClaimController.class);
+    private final Logger _logger = LoggerFactory.getLogger(getClass());
 
     private final BrokerService brokerService;
     private final CarrierService carrierService;

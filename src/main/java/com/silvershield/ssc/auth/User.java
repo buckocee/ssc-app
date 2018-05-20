@@ -1,5 +1,6 @@
 package com.silvershield.ssc.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -46,6 +47,10 @@ public class User {
     @Column(name = "status")
     private Status status;
 
+    @JsonIgnore
+    @Column(name = "registration_token")
+    private String registrationToken;
+
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -56,7 +61,7 @@ public class User {
 
 
     public enum Status{
-        ACTIVE, EXPIRED, LOCKED, CREDENTIALS_EXPIRED
+        REGISTERED, ACTIVE, EXPIRED, LOCKED, CREDENTIALS_EXPIRED
     }
 
     @Override

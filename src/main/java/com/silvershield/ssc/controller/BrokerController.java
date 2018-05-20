@@ -2,6 +2,8 @@ package com.silvershield.ssc.controller;
 
 import com.silvershield.ssc.model.Broker;
 import com.silvershield.ssc.service.BrokerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "brokers")
 public class BrokerController {
+
+    private final Logger _logger = LoggerFactory.getLogger(getClass());
 
     private BrokerService brokerService;
 

@@ -28,4 +28,9 @@ public class AuthController {
     public User registerUser(@RequestBody UserDto userDto) throws Exception{
         return authService.registerUser(userDto);
     }
+
+    @GetMapping(value = "/confirm-registration/{token}")
+    public User confirmRegistration(@PathVariable String token) throws Exception{
+        return authService.confirmRegistration(token);  // TODO handle different exception types (invalid, already exists)
+    }
 }
