@@ -40,6 +40,7 @@ public class User {
     @Column(name = "user_name")
     private String userName;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -47,7 +48,6 @@ public class User {
     @Column(name = "status")
     private Status status;
 
-    @JsonIgnore
     @Column(name = "registration_token")
     private String registrationToken;
 

@@ -29,14 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login*","/login*", "/logout*", "/signin/**", "/signup/**",
-                        "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
-                        "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
-                        "/user/changePassword*", "/emailError*", "/resources/**").permitAll()
-                .antMatchers("/invalidSession*").anonymous()
-                .anyRequest().authenticated();
+        http.csrf().disable();
+//                .authorizeRequests()
+//                .antMatchers("/login*","/login*", "/logout*", "/signin/**", "/signup/**",
+//                        "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
+//                        "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
+//                        "/user/changePassword*", "/emailError*", "/resources/**").permitAll()
+//                .antMatchers("/invalidSession*").anonymous()
+//                .anyRequest().authenticated();
 
         _logger.info("Customized http security configuration");
     }
