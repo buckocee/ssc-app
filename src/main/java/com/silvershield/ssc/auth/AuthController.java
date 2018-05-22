@@ -3,6 +3,8 @@ package com.silvershield.ssc.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/v1/users")
 public class AuthController {
@@ -15,13 +17,8 @@ public class AuthController {
     }
 
     @GetMapping
-    public UserDto index(){
-        UserDto user = new UserDto();
-        user.setEmail("john.doe@email.com");
-        user.setFirstName("John");
-        user.setLastName("Doe");
-
-        return user;
+    public List<User> index(){
+        return authService.getUsers();
     }
 
     @PostMapping(value = "/register")

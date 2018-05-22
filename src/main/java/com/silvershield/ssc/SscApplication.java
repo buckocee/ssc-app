@@ -14,9 +14,4 @@ public class SscApplication {
     public static void main(String[] args) {
         SpringApplication.run(SscApplication.class, args);
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }

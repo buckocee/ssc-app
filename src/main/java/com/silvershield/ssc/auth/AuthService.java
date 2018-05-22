@@ -1,16 +1,15 @@
 package com.silvershield.ssc.auth;
 
 import com.silvershield.ssc.repos.RoleRepository;
+import com.silvershield.ssc.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,11 +20,11 @@ public class AuthService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-    private JavaMailSender emailSender;
+    private MailService emailSender;
 
     @Autowired
     public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       JavaMailSender emailSender){
+                       MailService emailSender){
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -37,6 +36,10 @@ public class AuthService {
         return userRepository.save(user);
     }
 
+
+    public List<User> getUsers(){
+        return userRepository.findAll();
+    }
 
     User registerUser(UserDto userDto) throws Exception {
 
@@ -70,14 +73,4 @@ public class AuthService {
         _logger.info("User [{}] registration confirmed", user.getId());
         return user;
     }
-
-    public void sendSimpleMessage(
-            String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        emailSender.send(message);
-    }
-
 }
