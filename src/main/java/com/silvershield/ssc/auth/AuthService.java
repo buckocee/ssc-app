@@ -76,4 +76,8 @@ public class AuthService {
         _logger.info("User [{}] registration confirmed", user.getId());
         return user;
     }
+
+    void resetPassword(String token){
+
+    }
 }

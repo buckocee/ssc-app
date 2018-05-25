@@ -30,4 +30,27 @@ public class AuthController {
     public User confirmRegistration(@PathVariable String token) throws Exception{
         return authService.confirmRegistration(token);  // TODO handle different exception types (invalid, already exists)
     }
+
+    @PostMapping(value = "/reset-password")
+    public String resetPassword(){
+        // TODO send email with password reset token
+        return null;
+    }
+
+    @PostMapping(value = "/update-password")
+    public String changePassword(PasswordResetDTO passwordResetDTO){
+
+        // TODO validate reset token
+        // TODO validate passwords match
+        // TODO update password
+        return null;
+    }
+
+    @GetMapping(value = "/reset-token/{id}")
+    public String getPasswordResetToken(@PathVariable(value = "id") Integer userId){
+
+        // TODO get password reset token from authservice
+        return null;
+    }
 }
+

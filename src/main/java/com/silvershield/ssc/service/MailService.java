@@ -45,7 +45,7 @@ public class MailService {
     }
 
     public void sendResetPassword(String to, String token) {
-        String url = appUrl + "/user/reset-password-change?token=" + token;
+        String url = appUrl + "/api/v1/users/reset-password-change?token=" + token;
         String subject = "Reset Password";
         String text = "Please click the following link to reset your password: " + url;
         sendMail(to, subject, text);
