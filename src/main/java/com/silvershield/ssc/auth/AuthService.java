@@ -72,6 +72,7 @@ public class AuthService {
             throw new Exception("User already confirmed");
         }
         user.setStatus(User.Status.ACTIVE);
+        user.setIsActive(true);
         _logger.info("User [{}] registration confirmed", user.getId());
         return user;
     }

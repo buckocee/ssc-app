@@ -52,7 +52,7 @@ public class MailService {
     }
 
     private void sendNewRegistration(String to, String token) {
-        String url = appUrl + "/user/activate?activation=" + token;
+        String url = appUrl + "/api/v1/users/confirm-registration/" + token;
         String subject = "Please activate your account";
         String text = "Please click the following link to activate your account: " + url;
         sendMail(to, subject, text);
