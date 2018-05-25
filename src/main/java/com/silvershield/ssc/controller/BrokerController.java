@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "brokers")
+@RequestMapping(value = "/brokers")
 public class BrokerController {
 
     private final Logger _logger = LoggerFactory.getLogger(getClass());
@@ -30,13 +30,13 @@ public class BrokerController {
         return brokerService.getBrokerById(id);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Broker> getBrokers(){
         return brokerService.getBrokers();
     }
 
-    @PostMapping(value = "/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Broker saveBroker(@RequestBody Broker broker){
         return brokerService.saveBroker(broker);

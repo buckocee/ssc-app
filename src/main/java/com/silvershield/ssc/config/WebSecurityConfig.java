@@ -29,15 +29,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/login**", "/error**", "/api/v1/users/register", "/api/v1/users/confirm-registration/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll()
-        .and()
+        http
+//                .antMatcher("/**")
+//                .authorizeRequests()
+//                .antMatchers("/", "/login**", "/error**", "/api/v1/users/register", "/api/v1/users/confirm-registration/**")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .logout().logoutSuccessUrl("/").permitAll()
+//        .and()
                 .csrf().disable();
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
