@@ -1,6 +1,7 @@
 package com.silvershield.ssc.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.silvershield.ssc.model.Carrier;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -55,6 +56,10 @@ public class User {
 
     @Column(name = "registration_token")
     private String registrationToken;
+
+    @OneToOne
+    @JoinColumn(name = "carrierId")
+    public Carrier carrier;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,

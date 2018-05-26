@@ -30,6 +30,10 @@ public class Carrier {
     @OneToMany(mappedBy = "carrier")
     private List<Claim> claims;
 
+    @OneToOne
+    @JoinColumn(name = "addressId")
+    private Address address;
+
     public enum Status{
         ACTIVE, INACTIVE
     }

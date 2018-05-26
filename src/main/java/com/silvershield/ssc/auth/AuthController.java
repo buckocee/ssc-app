@@ -1,6 +1,7 @@
 package com.silvershield.ssc.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +18,19 @@ public class AuthController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<User> index(){
         return authService.getUsers();
     }
 
     @PostMapping(value = "/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public User registerUser(@RequestBody UserDto userDto) throws Exception{
         return authService.registerUser(userDto);
     }
 
     @GetMapping(value = "/confirm-registration/{token}")
+    @ResponseStatus(HttpStatus.OK)
     public User confirmRegistration(@PathVariable String token) throws Exception{
         return authService.confirmRegistration(token);  // TODO handle different exception types (invalid, already exists)
     }

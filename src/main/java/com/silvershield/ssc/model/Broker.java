@@ -26,6 +26,10 @@ public class Broker {
     @Column(name = "status")
     private Status status;
 
+    @OneToOne
+    @JoinColumn(name = "addressId")
+    private Address address;
+
     public enum Status{
         ACTIVE, INACTIVE
     }

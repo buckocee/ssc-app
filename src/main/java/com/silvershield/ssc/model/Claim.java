@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,27 +30,30 @@ public class Claim {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "carrier")
+    @Column(name = "carrier_id")
     private Integer carrierId;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "carrier", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrier_id", insertable = false, updatable = false)
     private Carrier carrier;
 
-    @Column(name = "broker")
+    @Column(name = "broker_id")
     private Integer brokerId;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "broker", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "broker_id", insertable = false, updatable = false)
     private Broker broker;
+
+    @OneToMany(mappedBy = "claim", cascade = CascadeType.REMOVE)
+    private List<Load> load;
 
     @Column(name = "created_by")
     private Integer createdById;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", insertable = false, updatable = false)
     private User createdBy;
 
@@ -57,7 +61,7 @@ public class Claim {
     private Integer updatedById;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", insertable = false, updatable = false)
     private User updatedBy;
 
