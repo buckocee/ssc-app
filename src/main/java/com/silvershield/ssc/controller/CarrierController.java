@@ -1,6 +1,7 @@
 package com.silvershield.ssc.controller;
 
 import com.silvershield.ssc.model.Carrier;
+import com.silvershield.ssc.model.CarrierStagingDTO;
 import com.silvershield.ssc.service.CarrierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,5 +41,10 @@ public class CarrierController {
     @DeleteMapping(value = "/{carrierId}")
     public void deleteCarrier(@PathVariable("carrierId") Integer carrierId){
         carrierService.deleteCarrier(carrierId);
+    }
+
+    @GetMapping(value = "/dtos")
+    public List<CarrierStagingDTO> getDTOs(){
+        return carrierService.getCarrierDTOs();
     }
 }
