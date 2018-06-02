@@ -4,10 +4,14 @@ import com.silvershield.ssc.auth.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailSender;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -23,23 +27,28 @@ public class MailService {
     @Value("${app.email.support}")
     private String supportEmail;
 
-    private MailSender mailSender;
+    private JavaMailSender emailSender;
+    MailContentBuilder mailContentBuilder;
 
     @Autowired
-    public MailService(MailSender mailSender){
-        this.mailSender = mailSender;
+    public MailService(JavaMailSender emailSender, MailContentBuilder mailContentBuilder){
+        this.emailSender = emailSender;
+        this.mailContentBuilder = mailContentBuilder;
     }
 
-    private void sendMail(String to, String subject, String text) {
+    private void sendMail(String recipient, String subject, String message, String url) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setFrom("sample@dolszewski.com");
+            messageHelper.setTo(recipient);
+            messageHelper.setSubject(subject);
+            messageHelper.setFrom(fromEmail);
+            String content = mailContentBuilder.build(message, url);
+            messageHelper.setText(content, true);
+        };
         try {
-            SimpleMailMessage email = new SimpleMailMessage();
-            email.setTo(to);
-            email.setSubject(subject);
-            email.setFrom(fromEmail);
-            email.setText(text);
-            mailSender.send(email);
-            System.out.println("SENT EMAIL: TO=" + to + "|SUBJECT:" + subject + "|TEXT:" + text);
-        } catch (Exception e) {
+            emailSender.send(messagePreparator);
+        } catch (MailException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -47,15 +56,15 @@ public class MailService {
     public void sendResetPassword(String to, String token) {
         String url = appUrl + "/api/v1/users/reset-password-change?token=" + token;
         String subject = "Reset Password";
-        String text = "Please click the following link to reset your password: " + url;
-        sendMail(to, subject, text);
+        String text = "Please click the following link to reset your password: ";
+        sendMail(to, subject, text, url);
     }
 
     private void sendNewRegistration(String to, String token) {
         String url = appUrl + "/api/v1/users/confirm-registration/" + token;
         String subject = "Please activate your account";
-        String text = "Please click the following link to activate your account: " + url;
-        sendMail(to, subject, text);
+        String text = "Please click the following link to activate your account: ";
+        sendMail(to, subject, text, url);
     }
 
     public void sendNewActivationRequest(String to, String token) {
@@ -65,6 +74,6 @@ public class MailService {
     public void sendErrorEmail(Exception e, HttpServletRequest req, User user) {
         String subject = "Application Error: " + req.getRequestURL();
         String text = "An error occured in your application: " + e + "\r\nFor User:  " + user.getEmail();
-        sendMail(supportEmail, subject, text);
+        sendMail(supportEmail, subject, text, null);
     }
 }

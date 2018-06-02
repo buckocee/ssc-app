@@ -58,7 +58,7 @@ public class User {
     private String registrationToken;
 
     @OneToOne
-    @JoinColumn(name = "carrierId")
+    @JoinColumn(name = "carrier_id")
     public Carrier carrier;
 
     @ManyToMany(cascade = {
