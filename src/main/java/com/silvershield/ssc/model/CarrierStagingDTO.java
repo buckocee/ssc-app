@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "carriers_staging_clean")
+@Table(name = "carriers_source_clean")
 public class CarrierStagingDTO {
 
     @Id

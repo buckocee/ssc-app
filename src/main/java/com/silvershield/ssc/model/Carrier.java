@@ -30,9 +30,13 @@ public class Carrier {
     @OneToMany(mappedBy = "carrier")
     private List<Claim> claims;
 
-    @OneToOne
-    @JoinColumn(name = "addressId")
-    private Address address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "physical_address_id")
+    private Address physicalAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mailing_address_id")
+    private Address mailingAddress;
 
     public enum Status{
         ACTIVE, INACTIVE
