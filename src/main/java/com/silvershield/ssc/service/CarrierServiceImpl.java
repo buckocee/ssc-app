@@ -1,14 +1,18 @@
 package com.silvershield.ssc.service;
 
+import com.silvershield.ssc.model.Address;
 import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.CarrierStagingDTO;
 import com.silvershield.ssc.repos.CarrierRepository;
 import com.silvershield.ssc.repos.CarrierStagingDTORepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -45,6 +49,15 @@ public class CarrierServiceImpl implements CarrierService {
 
     @Override
     public List<CarrierStagingDTO> getCarrierDTOs(){
-        return carrierStagingDTORepo.findByCarrierOperationAndMailingState("C", "PA");
+        List<CarrierStagingDTO> carrierStagingDTOS = carrierStagingDTORepo.findByCarrierOperationAndMailingState("C", "PA");
+        carrierRepository.deleteAll();
+        List<Carrier> carriers = carrierStagingDTOS.stream()
+                .map(dto -> new Carrier(null,null, dto.getDotNumber().toString(), Carrier.Status.ACTIVE,
+                        StringUtils.hasText(dto.getDoingBusinessAsName()) ? dto.getDoingBusinessAsName() : dto.getLegalName(),null,
+                        new Address(null,dto.getPhyStreet(),null, dto.getPhyCity(),dto.getPhyState(), dto.getPhyCountry(), dto.getPhyZip()),
+                        new Address(null, dto.getMailingStreet(),null,dto.getMailingCity(), dto.getMailingState(), dto.getMailingCountry(),dto.getMailingZip())))
+                .collect(Collectors.toList());
+        carrierRepository.saveAll(carriers);
+        return carrierStagingDTOS;
     }
 }
