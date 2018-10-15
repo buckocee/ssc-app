@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticated()
 //                .and()
 //                .logout().logoutSuccessUrl("/").permitAll()
-//        .and()
+                .requiresChannel().antMatchers("/**").requiresSecure()
+                .and()
                 .csrf().disable();
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
