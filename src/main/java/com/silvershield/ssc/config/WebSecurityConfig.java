@@ -38,7 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticated()
 //                .and()
 //                .logout().logoutSuccessUrl("/").permitAll()
-                .requiresChannel().antMatchers("/**").requiresSecure()
+                .requiresChannel()
+                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+                .requiresSecure()
                 .and()
                 .csrf().disable();
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
