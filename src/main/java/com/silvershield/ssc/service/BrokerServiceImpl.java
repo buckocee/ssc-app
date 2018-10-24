@@ -1,7 +1,9 @@
 package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.model.Broker;
+import com.silvershield.ssc.model.BrokerStagingDTO;
 import com.silvershield.ssc.repos.BrokerRepository;
+import com.silvershield.ssc.repos.BrokerStagingDTORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -13,10 +15,12 @@ import java.util.List;
 public class BrokerServiceImpl implements BrokerService {
 
     private BrokerRepository brokerRepository;
+    private BrokerStagingDTORepository brokerStagingDTORepository;
 
     @Autowired
-    public BrokerServiceImpl(BrokerRepository brokerRepository){
+    public BrokerServiceImpl(BrokerRepository brokerRepository, BrokerStagingDTORepository brokerStagingDTORepository) {
         this.brokerRepository = brokerRepository;
+        this.brokerStagingDTORepository = brokerStagingDTORepository;
     }
 
     @Override
@@ -47,5 +51,15 @@ public class BrokerServiceImpl implements BrokerService {
     @Override
     public List<Broker> getBrokerByStatus(Broker.Status status) {
         return brokerRepository.findBrokersByStatus(status).orElse(null);
+    }
+
+    @Override
+    public List<BrokerStagingDTO> getBrokerDTOs() {
+        List<BrokerStagingDTO> brokerStagingDTOs = brokerStagingDTORepository.findAll();
+        brokerStagingDTOs.stream().map(brokerStagingDTO -> new Broker(null, brokerStagingDTO.getMcNumber(),
+                brokerStagingDTO.getDotNumber(), brokerStagingDTO.getBusinessName(), Broker.Status.ACTIVE,
+                null, null, brokerStagingDTO.getState(), brokerStagingDTO.getCity(), null))
+                .forEach(brokerRepository::save);
+        return brokerStagingDTOs;
     }
 }

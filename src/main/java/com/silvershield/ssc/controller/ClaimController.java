@@ -5,18 +5,24 @@ import com.silvershield.ssc.auth.User;
 import com.silvershield.ssc.model.Broker;
 import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.Claim;
-import com.silvershield.ssc.service.*;
+import com.silvershield.ssc.service.BrokerService;
+import com.silvershield.ssc.service.CarrierService;
+import com.silvershield.ssc.service.ClaimService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(value = "api/v1/claims")
+@RequestMapping(value = "/claims")
 public class ClaimController {
 
     private final Logger _logger = LoggerFactory.getLogger(getClass());
@@ -49,6 +55,16 @@ public class ClaimController {
     public Claim saveClaim(@RequestBody Claim claim){
         _logger.info("Claim [{}]", claim);
         return claimService.saveClaim(claim);
+    }
+
+    @PostMapping("/invoice/{claimId}")
+    public ResponseEntity attachInvoice(@RequestBody MultipartFile file, @PathVariable Integer claimId) {
+        try {
+            claimService.attachInvoice(claimId, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/submit")
@@ -91,11 +107,11 @@ public class ClaimController {
         Claim claim = new Claim();
         claim.setBrokerId(savedBroker.getId());
         claim.setCarrierId(savedCarrier.getId());
-        claim.setCreatedById(savedUser.getId());
+        claim.setUserId(savedUser.getId());
         claim.setDescription("Description");
         claim.setInvoiceNumber("INVC43354324143");
         claim.setStatus(Claim.Status.CREATED);
-        claim.setSubmitDate(new Timestamp(System.currentTimeMillis()));
+        claim.setSubmitDate(ZonedDateTime.now(ZoneId.of("UTC")));
 
         return claimService.saveClaim(claim);
     }

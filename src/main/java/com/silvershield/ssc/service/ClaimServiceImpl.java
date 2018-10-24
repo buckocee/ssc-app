@@ -5,6 +5,7 @@ import com.silvershield.ssc.repos.ClaimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Validated
 public class ClaimServiceImpl implements ClaimService {
 
-    private ClaimRepository claimRepository;
+    private final ClaimRepository claimRepository;
 
     @Autowired
     public ClaimServiceImpl(ClaimRepository claimRepository){
@@ -27,5 +28,15 @@ public class ClaimServiceImpl implements ClaimService {
     @Override
     public List<Claim> getClaims() {
         return claimRepository.findAll();
+    }
+
+    @Override
+    public String attachInvoice(Integer claimId, MultipartFile file) throws Exception {
+        Claim claim = claimRepository.findById(claimId)
+                .orElseThrow(() -> new Exception(String.format("Claim with ID %d not found!", claimId)));
+        claim.setInvoiceName(file.getOriginalFilename());
+        claim.setInvoice(file.getBytes());
+        claim = claimRepository.save(claim);
+        return claim.getInvoiceName();
     }
 }

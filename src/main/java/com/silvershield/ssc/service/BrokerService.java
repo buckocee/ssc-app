@@ -1,6 +1,7 @@
 package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.model.Broker;
+import com.silvershield.ssc.model.BrokerStagingDTO;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface BrokerService {
     void deleteBroker(Integer id);
     Broker updateBroker(Broker broker);
     List<Broker> getBrokerByStatus(Broker.Status status);
+
+    List<BrokerStagingDTO> getBrokerDTOs();
 }

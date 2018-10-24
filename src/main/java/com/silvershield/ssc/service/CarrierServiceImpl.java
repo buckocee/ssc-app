@@ -11,7 +11,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,7 +52,7 @@ public class CarrierServiceImpl implements CarrierService {
         carrierRepository.deleteAll();
         List<Carrier> carriers = carrierStagingDTOS.stream()
                 .map(dto -> new Carrier(null,null, dto.getDotNumber().toString(), Carrier.Status.ACTIVE,
-                        StringUtils.hasText(dto.getDoingBusinessAsName()) ? dto.getDoingBusinessAsName() : dto.getLegalName(),null,
+                        StringUtils.hasText(dto.getDoingBusinessAsName()) ? dto.getDoingBusinessAsName() : dto.getLegalName(), null, null, null,
                         new Address(null,dto.getPhyStreet(),null, dto.getPhyCity(),dto.getPhyState(), dto.getPhyCountry(), dto.getPhyZip()),
                         new Address(null, dto.getMailingStreet(),null,dto.getMailingCity(), dto.getMailingState(), dto.getMailingCountry(),dto.getMailingZip())))
                 .collect(Collectors.toList());

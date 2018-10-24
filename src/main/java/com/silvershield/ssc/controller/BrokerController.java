@@ -1,6 +1,7 @@
 package com.silvershield.ssc.controller;
 
 import com.silvershield.ssc.model.Broker;
+import com.silvershield.ssc.model.BrokerStagingDTO;
 import com.silvershield.ssc.service.BrokerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,5 +47,10 @@ public class BrokerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBroker(@PathVariable("id") Integer id){
         brokerService.deleteBroker(id);
+    }
+
+    @GetMapping(value = "/dto")
+    public List<BrokerStagingDTO> getBrokerDTOs() {
+        return brokerService.getBrokerDTOs();
     }
 }

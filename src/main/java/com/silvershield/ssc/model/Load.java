@@ -1,14 +1,15 @@
 package com.silvershield.ssc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.nio.file.Path;
 import java.util.Date;
 
 @Entity
 @Data
 @Table(name = "loads")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Load {
 
     @Id

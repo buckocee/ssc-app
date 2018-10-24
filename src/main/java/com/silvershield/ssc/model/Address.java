@@ -1,5 +1,6 @@
 package com.silvershield.ssc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "address")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
 
     @Id
@@ -21,7 +23,7 @@ public class Address {
     private String streetAddress;
 
     @Column(name = "apt_number")
-    private String aptNumber;
+    private String unitSuiteFloor;
 
     @Column(name = "city")
     private String city;
