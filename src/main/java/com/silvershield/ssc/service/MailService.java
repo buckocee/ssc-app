@@ -1,18 +1,16 @@
 package com.silvershield.ssc.service;
 
+import com.sendgrid.*;
 import com.silvershield.ssc.auth.User;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -29,29 +27,30 @@ public class MailService {
     @Value("${app.email.support}")
     private String supportEmail;
 
-    private JavaMailSender emailSender;
+    private SendGrid sendGrid;
     private MailContentBuilder mailContentBuilder;
 
     @Autowired
-    public MailService(JavaMailSender emailSender, MailContentBuilder mailContentBuilder){
-        this.emailSender = emailSender;
+    public MailService(SendGrid sendGrid, MailContentBuilder mailContentBuilder) {
+        this.sendGrid = sendGrid;
         this.mailContentBuilder = mailContentBuilder;
     }
 
     private void sendMail(String recipient, String subject, String message, String url) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("sample@dolszewski.com");
-            messageHelper.setTo(recipient);
-            messageHelper.setSubject(subject);
-            messageHelper.setFrom(fromEmail);
-            String content = mailContentBuilder.build(message, url);
-            messageHelper.setText(content, true);
-        };
+        Email to = new Email(recipient);
+        Email from = new Email(supportEmail, "SSC_SUPPORT_DONOTREPLY");
+        Content content = new Content("text/html", mailContentBuilder.build(message, url));
+        Mail mail = new Mail(from, subject, to, content);
+        Request request = new Request();
+        Response response = null;
         try {
-            emailSender.send(messagePreparator);
-            _logger.info("Email to [{}] sent successfully", recipient);
-        } catch (MailException e) {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            _logger.debug("Request: [{}]", request);
+            response = sendGrid.api(request);
+            _logger.info("Response: [{}]::[{}]", response.getStatusCode(), response.getBody());
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }

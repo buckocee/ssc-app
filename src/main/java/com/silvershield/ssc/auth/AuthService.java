@@ -58,10 +58,8 @@ public class AuthService {
         user.setRegistrationToken(UUID.randomUUID().toString());
         user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")
                 .orElse(new Role("ROLE_USER"))));
-
-        emailSender.sendNewActivationRequest("somebody@localhost", user.getRegistrationToken());
-
         User savedUser = userRepository.save(user);
+        emailSender.sendNewActivationRequest(savedUser.getEmail(), user.getRegistrationToken());
         _logger.info("Created user [{}]", savedUser.getId());
 
         return savedUser;
