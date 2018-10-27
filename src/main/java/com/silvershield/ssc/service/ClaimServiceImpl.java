@@ -21,6 +21,13 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     @Override
+    public Claim getClaimById(Integer id, Integer userId) {
+        return claimRepository.findById(id)
+                .filter(claim -> claim.getUserId().compareTo(userId) == 0)
+                .orElse(null);
+    }
+
+    @Override
     public Claim saveClaim(Claim claim){
         return claimRepository.save(claim);
     }
@@ -28,6 +35,11 @@ public class ClaimServiceImpl implements ClaimService {
     @Override
     public List<Claim> getClaims() {
         return claimRepository.findAll();
+    }
+
+    @Override
+    public List<Claim> getClaimsByUserId(Integer userId) {
+        return claimRepository.findClaimByUserId(userId);
     }
 
     @Override

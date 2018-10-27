@@ -42,17 +42,30 @@ public class ClaimController {
     }
 
     @GetMapping
-    public List<Claim> getAllClaims(){
-        return claimService.getClaims();
+    public List<Claim> getAllClaims() throws Exception {
+        User user = authService.getAuthenticatedUser();
+        if (authService.isAdmin(user))
+            return claimService.getClaims();
+        Integer userId = user.getId();
+        return claimService.getClaimsByUserId(userId);
     }
 
     @GetMapping("/{id}")
-    public Claim getClaimById(@PathVariable("id") String id){
-        return null;
+    public Claim getClaimById(@PathVariable("id") Integer id) {
+        Claim claim = null;
+        try {
+            Integer userId = authService.getAuthenticatedUser().getId();
+            claim = claimService.getClaimById(id, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return claim;
     }
 
     @PostMapping("/save")
-    public Claim saveClaim(@RequestBody Claim claim){
+    public Claim saveClaim(@RequestBody Claim claim) throws Exception {
+        Integer userId = authService.getAuthenticatedUser().getId();
+        claim.setUserId(userId);
         _logger.info("Claim [{}]", claim);
         return claimService.saveClaim(claim);
     }

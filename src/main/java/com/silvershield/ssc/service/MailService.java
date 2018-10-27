@@ -2,21 +2,23 @@ package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.auth.User;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
 @Slf4j
 public class MailService {
+
+    private final Logger _logger = LoggerFactory.getLogger(MailService.class);
 
     @Value("${app.url}")
     private String appUrl;
@@ -28,7 +30,7 @@ public class MailService {
     private String supportEmail;
 
     private JavaMailSender emailSender;
-    MailContentBuilder mailContentBuilder;
+    private MailContentBuilder mailContentBuilder;
 
     @Autowired
     public MailService(JavaMailSender emailSender, MailContentBuilder mailContentBuilder){
@@ -48,6 +50,7 @@ public class MailService {
         };
         try {
             emailSender.send(messagePreparator);
+            _logger.info("Email to [{}] sent successfully", recipient);
         } catch (MailException e) {
             System.err.println(e.getMessage());
         }
@@ -61,6 +64,7 @@ public class MailService {
     }
 
     private void sendNewRegistration(String to, String token) {
+        _logger.info("Sending email to [{}] with registration token", to);
         String url = appUrl + "/api/v1/users/confirm-registration/" + token;
         String subject = "Please activate your account";
         String text = "Please click the following link to activate your account: ";

@@ -19,10 +19,10 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
         Optional username = Optional.ofNullable(request.getHeader("X-Auth-Username"));
         Optional password = Optional.ofNullable(request.getHeader("X-Auth-Password"));
-        Optional token = Optional.ofNullable(request.getHeader("X-Auth-Token"));
+        Optional<String> token = Optional.ofNullable(request.getHeader("Authorization"));
 
         // TODO validate token
-        _logger.info("Token present: [{}]", token.isPresent());
+        _logger.info("Token: [{}]", token.map(String::valueOf).orElse(""));
         request.setAttribute("clientId", 123);
         return true;
     }

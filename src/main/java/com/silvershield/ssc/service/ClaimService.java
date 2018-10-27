@@ -9,5 +9,9 @@ public interface ClaimService {
     Claim saveClaim(Claim claim);
     List<Claim> getClaims();
 
+    List<Claim> getClaimsByUserId(Integer userId);
+
+    Claim getClaimById(Integer id, Integer userId);
+
     String attachInvoice(Integer claimId, MultipartFile file) throws Exception;
 }
