@@ -2,13 +2,24 @@ package com.silvershield.ssc.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.silvershield.ssc.model.Carrier;
-import lombok.Data;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import lombok.Data;
 
 @Data
 @Entity
@@ -43,8 +54,9 @@ public class User {
     @Column(name = "updated_date")
     private Timestamp updatedDate;
 
-    @Column(name = "user_name")
-    private String userName;
+  @JsonIgnore
+  @Column(name = "user_name")
+  private String userName;
 
     @JsonIgnore
     @Column(name = "password", nullable = false)
@@ -54,8 +66,9 @@ public class User {
     @Column(name = "status")
     private Status status;
 
-    @Column(name = "registration_token")
-    private String registrationToken;
+  @JsonIgnore
+  @Column(name = "registration_token")
+  private String registrationToken;
 
     @OneToOne
     @JoinColumn(name = "carrier_id")

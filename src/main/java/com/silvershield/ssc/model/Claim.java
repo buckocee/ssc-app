@@ -3,10 +3,23 @@ package com.silvershield.ssc.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.silvershield.ssc.auth.User;
-import lombok.Data;
-
-import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import lombok.Data;
 
 @Data
 @Entity
@@ -82,6 +95,14 @@ public class Claim {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", insertable = false, updatable = false)
     private User createdBy;
+
+    @Transient
+    private String submittedBy;
+
+    public String getSubmittedBy() {
+        return Objects.isNull(createdBy) ? "" :
+            String.format("%s %s", createdBy.getFirstName(), createdBy.getLastName());
+    }
 
     @JsonIgnore
     @Column(name = "updated_by")
