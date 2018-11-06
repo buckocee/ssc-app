@@ -2,12 +2,11 @@ package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.repos.ClaimRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Service
 @Validated
@@ -21,9 +20,9 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     @Override
-    public Claim getClaimById(Integer id, Integer userId) {
+    public Claim getClaimById(Integer id, Integer userId, boolean role_admin) {
         return claimRepository.findById(id)
-                .filter(claim -> claim.getUserId().compareTo(userId) == 0)
+            .filter(claim -> claim.getUserId().compareTo(userId) == 0 || role_admin)
                 .orElse(null);
     }
 
