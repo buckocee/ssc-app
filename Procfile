@@ -1,1 +1,0 @@
-web java -Dserver.port=$PORT -Dkeystore.file=file:///$PWD/keystore.p12 $JAVA_OPTS -jar target/ssc-0.0.1-SNAPSHOT.jar
