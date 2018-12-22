@@ -1,5 +1,8 @@
 package com.silvershield.ssc.config;
 
+import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,11 +12,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+  private final Logger _logger = LoggerFactory.getLogger(getClass());
 
     @Value("${resource.id:spring-boot-application}")
     private String resourceId;
@@ -28,11 +31,18 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http.requestMatcher(new OAuthRequestedMatcher())
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .anyRequest().authenticated();
+//        http.requestMatcher(new OAuthRequestedMatcher())
+      http.authorizeRequests()
+          .antMatchers(HttpMethod.OPTIONS).permitAll()
+          .anyRequest().authenticated()
+          .and()
+          .requiresChannel()
+          .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+          .requiresSecure();
+//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         // @formatter:on
+
+      _logger.info("Customized http security configuration");
     }
 
     private static class OAuthRequestedMatcher implements RequestMatcher {

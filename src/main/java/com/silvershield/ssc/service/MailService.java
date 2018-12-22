@@ -1,16 +1,21 @@
 package com.silvershield.ssc.service;
 
-import com.sendgrid.*;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
 import com.silvershield.ssc.auth.User;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Service
 @Slf4j
@@ -56,7 +61,7 @@ public class MailService {
     }
 
     public void sendResetPassword(String to, String token) {
-        String url = appUrl + "/api/v1/users/reset-password-change?token=" + token;
+        String url = appUrl + "/reset-password-change?token=" + token;
         String subject = "Reset Password";
         String text = "Please click the following link to reset your password: ";
         sendMail(to, subject, text, url);
@@ -64,7 +69,7 @@ public class MailService {
 
     private void sendNewRegistration(String to, String token) {
         _logger.info("Sending email to [{}] with registration token", to);
-        String url = appUrl + "/api/v1/users/confirm-registration/" + token;
+        String url = appUrl + "/confirm-registration?token=" + token;
         String subject = "Please activate your account";
         String text = "Please click the following link to activate your account: ";
         sendMail(to, subject, text, url);
