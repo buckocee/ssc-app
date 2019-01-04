@@ -3,15 +3,14 @@ package com.silvershield.ssc.controller;
 import com.silvershield.ssc.model.Broker;
 import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.Claim;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController()
+@RestController
 public class OverviewController {
 
     private final Logger _logger = LoggerFactory.getLogger(getClass());

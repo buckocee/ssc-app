@@ -30,35 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/error", "/users/confirm-registration/**", "/users/register");
+        webSecurity.ignoring().antMatchers("/index.html");
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-////                https://stackoverflow.com/questions/35363924/java-spring-security-config-multiple-authentication-providers
-////                .antMatcher("/**")
-////                .authorizeRequests()
-////                .antMatchers("/", "/login**", "/error**", "/api/v1/users/register", "/api/v1/users/confirm-registration/**")
-////                .permitAll()
-////                .anyRequest()
-////                .authenticated()
-////                .and()
-////                .logout().logoutSuccessUrl("/").permitAll()
-////                .cors().and()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .requiresChannel()
-//                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-//                .requiresSecure()
-//                .and().httpBasic()
-//                .and().csrf().disable();
-////                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-//
-//        _logger.info("Customized http security configuration");
-//    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
