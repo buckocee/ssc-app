@@ -7,6 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,24 +33,29 @@ public class BrokerController {
         this.brokerService = brokerService;
     }
 
+    @Cacheable(value = "brokers", key = "#id")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Broker getBrokerById(@PathVariable("id") Integer id){
+      _logger.info("Retrieving broker with id [{}]", id);
         return brokerService.getBrokerById(id);
     }
 
+    @Cacheable(value = "brokers")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Broker> getBrokers() {
         return brokerService.getBrokers();
     }
 
+    @CachePut(value = "brokers")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Broker saveBroker(@RequestBody Broker broker){
         return brokerService.saveBroker(broker);
     }
 
+    @CacheEvict(value = "brokers", key = "#id")
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBroker(@PathVariable("id") Integer id){

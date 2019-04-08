@@ -2,6 +2,7 @@ package com.silvershield.ssc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "brokers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Broker {
+public class Broker implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
