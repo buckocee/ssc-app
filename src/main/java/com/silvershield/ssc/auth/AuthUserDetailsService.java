@@ -22,7 +22,7 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     private final Logger _logger = LoggerFactory.getLogger(getClass());
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AuthUserDetailsService(UserRepository userRepository){
