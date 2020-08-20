@@ -5,28 +5,29 @@ import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.CarrierStagingDTO;
 import com.silvershield.ssc.repos.CarrierRepository;
 import com.silvershield.ssc.repos.CarrierStagingDTORepo;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Validated
 public class CarrierServiceImpl implements CarrierService {
 
-    private CarrierRepository carrierRepository;
-    private CarrierStagingDTORepo carrierStagingDTORepo;
+    private final CarrierRepository carrierRepository;
+    private final CarrierStagingDTORepo carrierStagingDTORepo;
 
     @Autowired
-    public CarrierServiceImpl(CarrierRepository carrierRepository, CarrierStagingDTORepo carrierStagingDTORepo){
+    public CarrierServiceImpl(CarrierRepository carrierRepository, CarrierStagingDTORepo carrierStagingDTORepo) {
         this.carrierRepository = carrierRepository;
         this.carrierStagingDTORepo = carrierStagingDTORepo;
     }
 
     @Override
-    public Carrier saveCarrier(Carrier carrier){
+    public Carrier saveCarrier(Carrier carrier) {
         return carrierRepository.save(carrier);
     }
 

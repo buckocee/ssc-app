@@ -2,7 +2,7 @@ package com.silvershield.ssc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,17 +15,119 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.List;
 
-@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "carriers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Carrier {
+    public Carrier(Integer id, String mcNumber, String dotNumber, Status status, String businessName,
+                   String phoneNumber, String faxNumber, String email, List<Claim> claims,
+                   Address physicalAddress, Address mailingAddress) {
+        this.id = id;
+        this.mcNumber = mcNumber;
+        this.dotNumber = dotNumber;
+        this.status = status;
+        this.businessName = businessName;
+        this.phoneNumber = phoneNumber;
+        this.faxNumber = faxNumber;
+        this.email = email;
+        this.claims = claims;
+        this.physicalAddress = physicalAddress;
+        this.mailingAddress = mailingAddress;
+    }
+
+    public Carrier() {
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getMcNumber() {
+        return mcNumber;
+    }
+
+    public void setMcNumber(String mcNumber) {
+        this.mcNumber = mcNumber;
+    }
+
+    public String getDotNumber() {
+        return dotNumber;
+    }
+
+    public void setDotNumber(String dotNumber) {
+        this.dotNumber = dotNumber;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFaxNumber() {
+        return faxNumber;
+    }
+
+    public void setFaxNumber(String faxNumber) {
+        this.faxNumber = faxNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
+    }
+
+    public Address getPhysicalAddress() {
+        return physicalAddress;
+    }
+
+    public void setPhysicalAddress(Address physicalAddress) {
+        this.physicalAddress = physicalAddress;
+    }
+
+    public Address getMailingAddress() {
+        return mailingAddress;
+    }
+
+    public void setMailingAddress(Address mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

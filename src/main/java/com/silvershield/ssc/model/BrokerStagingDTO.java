@@ -1,16 +1,61 @@
 package com.silvershield.ssc.model;
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Entity
 @Table(name = "brokers_staging")
 public class BrokerStagingDTO {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getMcNumber() {
+        return mcNumber;
+    }
+
+    public void setMcNumber(String mcNumber) {
+        this.mcNumber = mcNumber;
+    }
+
+    public String getDotNumber() {
+        return dotNumber;
+    }
+
+    public void setDotNumber(String dotNumber) {
+        this.dotNumber = dotNumber;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     @Id
     @Column(name = "id", insertable = false, updatable = false)

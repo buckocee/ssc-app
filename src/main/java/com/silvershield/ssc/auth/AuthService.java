@@ -19,14 +19,14 @@ public class AuthService {
 
     private final Logger _logger = LoggerFactory.getLogger(getClass());
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
-    private MailService emailSender;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final MailService emailSender;
 
     @Autowired
     public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       MailService emailSender){
+                       MailService emailSender) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -72,7 +72,7 @@ public class AuthService {
             throw new Exception("User already confirmed");
         }
         user.setStatus(User.Status.ACTIVE);
-        user.setIsActive(true);
+        user.setActive(true);
         _logger.info("User [{}] registration confirmed", user.getId());
         return user;
     }

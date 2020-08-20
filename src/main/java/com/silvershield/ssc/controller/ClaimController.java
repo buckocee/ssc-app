@@ -8,10 +8,6 @@ import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.service.BrokerService;
 import com.silvershield.ssc.service.CarrierService;
 import com.silvershield.ssc.service.ClaimService;
-import java.sql.Timestamp;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -100,7 +101,7 @@ public class ClaimController {
         user.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
 //        user.setPassword(passwordEncoder.encode("password"));
         user.setPassword("password");
-        user.setIsActive(true);
+        user.setActive(true);
         user.setUserName("johndoe");
         user.setStatus(User.Status.ACTIVE);
 

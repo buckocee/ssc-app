@@ -3,8 +3,7 @@ package com.silvershield.ssc.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.silvershield.ssc.auth.User;
-import java.time.ZonedDateTime;
-import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,20 +15,200 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import lombok.Data;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 
-@Data
 @Entity
 @Table(name = "claims")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Claim {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrier_id", insertable = false, updatable = false)
+    private Carrier carrier;
+
+    public Integer getClaimId() {
+        return claimId;
+    }
+
+    public void setClaimId(Integer claimId) {
+        this.claimId = claimId;
+    }
+
+    public ZonedDateTime getSubmitDate() {
+        return submitDate;
+    }
+
+    public void setSubmitDate(ZonedDateTime submitDate) {
+        this.submitDate = submitDate;
+    }
+
+    public ZonedDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(ZonedDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public ZonedDateTime getInvoicePayableDate() {
+        return invoicePayableDate;
+    }
+
+    public void setInvoicePayableDate(ZonedDateTime invoicePayableDate) {
+        this.invoicePayableDate = invoicePayableDate;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getCarrierId() {
+        return carrierId;
+    }
+
+    public void setCarrierId(Integer carrierId) {
+        this.carrierId = carrierId;
+    }
+
+    public Carrier getCarrier() {
+        return carrier;
+    }
+
+    public void setCarrier(Carrier carrier) {
+        this.carrier = carrier;
+    }
+
+    public Integer getBrokerId() {
+        return brokerId;
+    }
+
+    public void setBrokerId(Integer brokerId) {
+        this.brokerId = brokerId;
+    }
+
+    public Broker getBroker() {
+        return broker;
+    }
+
+    public void setBroker(Broker broker) {
+        this.broker = broker;
+    }
+
+    public Load getLoad() {
+        return load;
+    }
+
+    public void setLoad(Load load) {
+        this.load = load;
+    }
+
+    public ZonedDateTime getLoadDate() {
+        return loadDate;
+    }
+
+    public void setLoadDate(ZonedDateTime loadDate) {
+        this.loadDate = loadDate;
+    }
+
+    public ZonedDateTime getLoadType() {
+        return loadType;
+    }
+
+    public void setLoadType(ZonedDateTime loadType) {
+        this.loadType = loadType;
+    }
+
+    public byte[] getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(byte[] invoice) {
+        this.invoice = invoice;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Double getHaulageDistance() {
+        return haulageDistance;
+    }
+
+    public void setHaulageDistance(Double haulageDistance) {
+        this.haulageDistance = haulageDistance;
+    }
+
+    public String getInvoiceName() {
+        return invoiceName;
+    }
+
+    public void setInvoiceName(String invoiceName) {
+        this.invoiceName = invoiceName;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setSubmittedBy(String submittedBy) {
+        this.submittedBy = submittedBy;
+    }
+
+    public Integer getUpdatedById() {
+        return updatedById;
+    }
+
+    public void setUpdatedById(Integer updatedById) {
+        this.updatedById = updatedById;
+    }
+
+    public User getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(User updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer claimId;
 
     @Column(name = "submit_date")
@@ -51,9 +230,9 @@ public class Claim {
     @Column(name = "carrier_id")
     private Integer carrierId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carrier_id", insertable = false, updatable = false)
-    private Carrier carrier;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @JsonIgnore
     @Column(name = "broker_id")

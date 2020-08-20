@@ -14,8 +14,8 @@ import java.util.List;
 @Validated
 public class BrokerServiceImpl implements BrokerService {
 
-    private BrokerRepository brokerRepository;
-    private BrokerStagingDTORepository brokerStagingDTORepository;
+    private final BrokerRepository brokerRepository;
+    private final BrokerStagingDTORepository brokerStagingDTORepository;
 
     @Autowired
     public BrokerServiceImpl(BrokerRepository brokerRepository, BrokerStagingDTORepository brokerStagingDTORepository) {
@@ -24,7 +24,7 @@ public class BrokerServiceImpl implements BrokerService {
     }
 
     @Override
-    public Broker saveBroker(Broker broker){
+    public Broker saveBroker(Broker broker) {
         return brokerRepository.save(broker);
     }
 

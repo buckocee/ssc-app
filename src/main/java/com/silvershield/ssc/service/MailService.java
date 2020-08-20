@@ -8,8 +8,6 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.silvershield.ssc.auth.User;
-import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,23 +15,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
 @Service
 @Slf4j
 public class MailService {
 
     private final Logger _logger = LoggerFactory.getLogger(MailService.class);
 
-    @Value("${app.url}")
+    private final SendGrid sendGrid;
+    private final MailContentBuilder mailContentBuilder;
+    @Value("${ssc.client.url}")
     private String appUrl;
-
-    @Value("${app.email.from}")
+    @Value("${ssc.email.from}")
     private String fromEmail;
-
-    @Value("${app.email.support}")
+    @Value("${ssc.email.support}")
     private String supportEmail;
-
-    private SendGrid sendGrid;
-    private MailContentBuilder mailContentBuilder;
 
     @Autowired
     public MailService(SendGrid sendGrid, MailContentBuilder mailContentBuilder) {

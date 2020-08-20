@@ -1,12 +1,14 @@
+import errno
+import os
 from bs4 import BeautifulSoup
-import os, errno
+
 
 def silentremove(filename):
     try:
         os.remove(filename)
-    except OSError as e: # this would be "except OSError, e:" before Python 2.6
-        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
-            raise # re-raise exception if a different error occurred
+    except OSError as e:  # this would be "except OSError, e:" before Python 2.6
+        if e.errno != errno.ENOENT:  # errno.ENOENT = no such file or directory
+            raise  # re-raise exception if a different error occurred
 
 base_dir = "/home/eri/Downloads/brokers"
 
@@ -28,7 +30,7 @@ for directory in output:
         html_doc = open(file_path, "r+")
         soup = BeautifulSoup(html_doc, 'html.parser')
         p = soup.find_all('p')
-        print "processing ", filename
+        print("processing ", filename)
         for broker in p[3:-5]:
             text = broker.get_text()
             if (text.find("View More Results:") == -1 and text.find("MC #") != -1 ):
@@ -55,7 +57,7 @@ for directory in output:
         html_doc.close()
 
     output.close()
-    print "Wrote output file: ", output_file
+    print("Wrote output file: ", output_file)
 
 final_csv.close()
-print "Wrote ", final_file, ". Processing exited successfully."
+print("Wrote ", final_file, ". Processing exited successfully.")

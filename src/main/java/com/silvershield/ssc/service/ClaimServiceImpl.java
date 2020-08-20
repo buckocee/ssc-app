@@ -2,11 +2,12 @@ package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.repos.ClaimRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @Validated
@@ -15,7 +16,7 @@ public class ClaimServiceImpl implements ClaimService {
     private final ClaimRepository claimRepository;
 
     @Autowired
-    public ClaimServiceImpl(ClaimRepository claimRepository){
+    public ClaimServiceImpl(ClaimRepository claimRepository) {
         this.claimRepository = claimRepository;
     }
 
