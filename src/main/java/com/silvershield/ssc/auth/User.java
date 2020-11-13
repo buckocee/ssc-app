@@ -16,8 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -31,8 +29,8 @@ public class User {
     private Integer id;
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email(message = "Please provide a valid e-mail")
-    @NotEmpty(message = "Please provide an e-mail")
+//    @Email(message = "Please provide a valid e-mail")
+//    @NotEmpty(message = "Please provide an e-mail")
     private String email;
 
     public Integer getId() {

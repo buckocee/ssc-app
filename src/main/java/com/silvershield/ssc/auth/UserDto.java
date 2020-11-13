@@ -1,10 +1,8 @@
 package com.silvershield.ssc.auth;
 
-import com.silvershield.ssc.validator.PasswordMatches;
+//import com.silvershield.ssc.validator.PasswordMatches;
 
-import javax.validation.constraints.NotNull;
-
-@PasswordMatches
+//@PasswordMatches
 public class UserDto {
     public String getFirstName() {
         return firstName;
@@ -54,21 +52,21 @@ public class UserDto {
         this.email = email;
     }
 
-    @NotNull
+//    @NotNull
     private String firstName;
 
-    @NotNull
+//    @NotNull
     private String lastName;
 
-    @NotNull
+//    @NotNull
     private String password;
 
-    @NotNull
+//    @NotNull
     private String confirmPassword;
 
     private Integer role;
 
-    @NotNull
+//    @NotNull
     private String email;
 
 }
