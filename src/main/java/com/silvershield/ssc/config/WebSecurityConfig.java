@@ -1,19 +1,22 @@
-package com.silvershield.ssc.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//package com.silvershield.ssc.config;
+//
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//
+//@Configuration
+//@EnableWebSecurity
+//public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    private final Logger _logger = LoggerFactory.getLogger(getClass());
-//
+
 //    private UserDetailsService userDetailsService;
 //
 //    @Autowired
@@ -38,21 +41,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .authorizeRequests()
 //            .anyRequest().authenticated()
 //            .and()
-//            .oauth2Login()
-//            .and()
-//            .saml2Login(Customizer.withDefaults());
+//            .oauth2Login();
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(11);
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(11);
+//    }
+//
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 //
 //    @Bean
 //    public RelyingPartyRegistrationRepository relyingPartyRegistrationRepository() {
@@ -75,4 +76,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return RelyingPartyRegistration.
 //                                         .build();
 //    }
-}
+//}

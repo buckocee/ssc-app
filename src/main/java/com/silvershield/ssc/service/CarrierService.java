@@ -1,5 +1,6 @@
 package com.silvershield.ssc.service;
 
+import com.silvershield.ssc.model.Address;
 import com.silvershield.ssc.model.Carrier;
 import com.silvershield.ssc.model.CarrierStagingDTO;
 
@@ -11,4 +12,5 @@ public interface CarrierService {
     List<Carrier> getCarriers();
     void deleteCarrier(Integer id);
     List<CarrierStagingDTO> getCarrierDTOs();
+    Carrier validateCarrier(Carrier carrier);
 }

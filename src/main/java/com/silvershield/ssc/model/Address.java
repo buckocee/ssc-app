@@ -1,5 +1,6 @@
 package com.silvershield.ssc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
@@ -7,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "address")
@@ -21,6 +24,24 @@ public class Address {
         this.state = state;
         this.country = country;
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return getStreetAddress().equals(address.getStreetAddress()) &&
+                Objects.equals(getUnitSuiteFloor(), address.getUnitSuiteFloor()) &&
+                getCity().equals(address.getCity()) &&
+                getState().equals(address.getState()) &&
+                getCountry().equals(address.getCountry()) &&
+                getZipCode().equals(address.getZipCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStreetAddress(), getUnitSuiteFloor(), getCity(), getState(), getCountry(), getZipCode());
     }
 
     public Address() {
