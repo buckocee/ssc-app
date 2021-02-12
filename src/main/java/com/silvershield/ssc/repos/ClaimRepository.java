@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ClaimRepository extends JpaRepository<Claim, Integer> {
 
-    List<Claim> findClaimByUserId(Integer userId);
+    List<Claim> findClaimByUserId(Long userId);
 }

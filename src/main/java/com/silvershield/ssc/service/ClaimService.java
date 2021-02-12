@@ -10,9 +10,9 @@ public interface ClaimService {
 
     List<Claim> getClaims();
 
-    List<Claim> getClaimsByUserId(Integer userId);
+    List<Claim> getClaimsByUserId(Long userId);
 
-    Claim getClaimById(Integer id, Integer userId, boolean role_admin);
+    Claim getClaimById(Integer id, Long userId, boolean role_admin);
 
     String attachInvoice(Integer claimId, MultipartFile file) throws Exception;
 

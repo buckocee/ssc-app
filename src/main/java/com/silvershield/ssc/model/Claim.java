@@ -168,12 +168,11 @@ public class Claim {
         this.invoiceName = invoiceName;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    @Column(name = "created_by")
+    private Long userId;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public Long getUserId() {
+        return userId;
     }
 
     public User getCreatedBy() {
@@ -268,8 +267,9 @@ public class Claim {
     @Column(name = "invoice_name")
     private String invoiceName;
 
-    @Column(name = "created_by")
-    private Integer userId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)

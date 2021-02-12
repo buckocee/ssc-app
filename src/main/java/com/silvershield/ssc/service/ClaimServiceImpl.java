@@ -24,9 +24,9 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     @Override
-    public Claim getClaimById(Integer id, Integer userId, boolean role_admin) {
+    public Claim getClaimById(Integer id, Long userId, boolean role_admin) {
         return claimRepository.findById(id)
-            .filter(claim -> claim.getUserId().compareTo(userId) == 0 || role_admin)
+                .filter(claim -> claim.getUserId().compareTo(userId) == 0 || role_admin)
                 .orElse(null);
     }
 
@@ -41,7 +41,7 @@ public class ClaimServiceImpl implements ClaimService {
     }
 
     @Override
-    public List<Claim> getClaimsByUserId(Integer userId) {
+    public List<Claim> getClaimsByUserId(Long userId) {
         return claimRepository.findClaimByUserId(userId);
     }
 

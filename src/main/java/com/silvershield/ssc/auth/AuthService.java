@@ -21,15 +21,15 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final MailService emailSender;
 
     @Autowired
-    public AuthService(UserRepository userRepository, RoleRepository roleRepository,
+    public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
                        MailService emailSender) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
         this.emailSender = emailSender;
     }
 
@@ -52,7 +52,7 @@ public class AuthService {
         final User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setStatus(User.Status.REGISTERED);
         user.setRegistrationToken(UUID.randomUUID().toString());

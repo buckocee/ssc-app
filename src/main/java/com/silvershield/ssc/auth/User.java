@@ -26,18 +26,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
 //    @Email(message = "Please provide a valid e-mail")
 //    @NotEmpty(message = "Please provide an e-mail")
     private String email;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

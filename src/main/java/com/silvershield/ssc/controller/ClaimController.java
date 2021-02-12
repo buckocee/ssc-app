@@ -52,7 +52,7 @@ public class ClaimController {
         User user = authService.getAuthenticatedUser();
         if (authService.isAdmin(user))
             return claimService.getClaims();
-        Integer userId = user.getId();
+        Long userId = user.getId();
         return claimService.getClaimsByUserId(userId);
     }
 
@@ -70,7 +70,7 @@ public class ClaimController {
 
     @PostMapping("/save")
     public Claim saveClaim(@RequestBody Claim claim) throws Exception {
-        Integer userId = authService.getAuthenticatedUser().getId();
+        Long userId = authService.getAuthenticatedUser().getId();
         claim.setUserId(userId);
         _logger.info("Claim [{}]", claim);
         return claimService.saveClaim(claim);
