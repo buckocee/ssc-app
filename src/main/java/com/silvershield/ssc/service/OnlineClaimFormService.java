@@ -34,7 +34,7 @@ public class OnlineClaimFormService {
             driver.findElement(By.id("ContentPlaceHolder2_ucInquiry_txtBrokerBusinessName"))
                     .sendKeys(String.format("%s%s", claim.getBroker().getBusinessName(), Keys.TAB));
             driver.findElement(By.id("ContentPlaceHolder2_ucInquiry_txtBrokerMC"))
-                    .sendKeys(claim.getBroker().getMcNumber() + Keys.TAB);
+                    .sendKeys(String.format("%s%s", claim.getBroker().getMcNumber(), Keys.TAB));
             // TODO - is silvershield the third party?
 //            driver.findElement(By.id("ContentPlaceHolder2_ucInquiry_txtThirdPartyCompanyName"))
 //                    .sendKeys(claim.getBroker().getBusinessName() + Keys.TAB);

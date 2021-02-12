@@ -2,6 +2,8 @@ package com.silvershield.ssc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -58,7 +60,8 @@ public class BrokerStagingDTO {
     }
 
     @Id
-    @Column(name = "id", insertable = false, updatable = false)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "mc_number", insertable = false, updatable = false)
