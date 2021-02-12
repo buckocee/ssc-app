@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import java.util.List;
 @Table(name = "carriers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Carrier {
+
     public Carrier(Integer id, String mcNumber, String dotNumber, Status status, String businessName,
                    String phoneNumber, String faxNumber, String email, List<Claim> claims,
                    Address physicalAddress, Address mailingAddress) {
@@ -153,8 +153,11 @@ public class Carrier {
     @Column(name = "fax")
     private String faxNumber;
 
-  @Column(name = "email")
-  private String email;
+    @Column
+    private String contactName;
+
+    @Column(name = "email")
+    private String email;
 
     @JsonIgnore
     @OneToMany(mappedBy = "carrier")
@@ -168,7 +171,15 @@ public class Carrier {
     @JoinColumn(name = "mailing_address_id")
     private Address mailingAddress;
 
-    public enum Status{
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public enum Status {
         ACTIVE, INACTIVE
     }
 }

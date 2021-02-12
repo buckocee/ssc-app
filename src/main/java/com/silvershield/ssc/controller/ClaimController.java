@@ -88,7 +88,7 @@ public class ClaimController {
 
     @PostMapping("/submit")
     public String submitClaim(@RequestBody Claim claim){
-        return null;
+        return claimService.submitClaim(claim);
     }
 
     @GetMapping("/test")

@@ -15,4 +15,6 @@ public interface ClaimService {
     Claim getClaimById(Integer id, Integer userId, boolean role_admin);
 
     String attachInvoice(Integer claimId, MultipartFile file) throws Exception;
+
+    String submitClaim(Claim claim);
 }

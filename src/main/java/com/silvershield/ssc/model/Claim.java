@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -134,12 +135,13 @@ public class Claim {
         this.loadType = loadType;
     }
 
-    public byte[] getInvoice() {
-        return invoice;
-    }
+    @JsonIgnore
+    @Column(name = "invoice")
+    @Lob
+    private List<byte[]> invoices;
 
-    public void setInvoice(byte[] invoice) {
-        this.invoice = invoice;
+    public List<byte[]> getInvoices() {
+        return invoices;
     }
 
     public Double getAmount() {
@@ -252,10 +254,9 @@ public class Claim {
     @Column(name = "load_type")
     private ZonedDateTime loadType;
 
-    @JsonIgnore
-    @Column(name = "invoice")
-    @Lob
-    private byte[] invoice;
+    public void setInvoices(List<byte[]> invoice) {
+        this.invoices = invoice;
+    }
 
     @Column(name = "amount")
     private Double amount;

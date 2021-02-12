@@ -2,6 +2,8 @@ package com.silvershield.ssc.service;
 
 import com.silvershield.ssc.model.Claim;
 import com.silvershield.ssc.repos.ClaimRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +15,7 @@ import java.util.List;
 @Validated
 public class ClaimServiceImpl implements ClaimService {
 
+    private final Logger _logger = LoggerFactory.getLogger(ClaimServiceImpl.class);
     private final ClaimRepository claimRepository;
 
     @Autowired
@@ -47,8 +50,16 @@ public class ClaimServiceImpl implements ClaimService {
         Claim claim = claimRepository.findById(claimId)
                 .orElseThrow(() -> new Exception(String.format("Claim with ID %d not found!", claimId)));
         claim.setInvoiceName(file.getOriginalFilename());
-        claim.setInvoice(file.getBytes());
+        claim.getInvoices().add(file.getBytes());
         claim = claimRepository.save(claim);
         return claim.getInvoiceName();
+    }
+
+    @Override
+    public String submitClaim(Claim claim) {
+        _logger.info("Saving claim {}", claim.getClaimId());
+        Claim savedClaim = claimRepository.save(claim);
+
+        return null;
     }
 }
