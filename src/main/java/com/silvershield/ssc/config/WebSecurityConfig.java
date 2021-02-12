@@ -38,14 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder());
     }
 
-//    @Override
-//    public void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/users/register", "/oauth/token").anonymous()
-//                .anyRequest().authenticated();
-//    }
-
     @Bean
     public PasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

@@ -35,7 +35,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //        http.requestMatcher(new OAuthRequestedMatcher())
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/error", "/users/confirm-registration/**", "/users/register", "/oauth/token")
+                .antMatchers("/error", "/users/confirm-registration/**", "/users/register")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
