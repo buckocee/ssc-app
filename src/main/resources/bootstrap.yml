@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        mode: event
+        strategy: refresh
+
+management:
+  endpoint:
+    restart:
+      enabled: true
